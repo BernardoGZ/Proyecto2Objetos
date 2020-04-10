@@ -24,7 +24,7 @@ public:
 	
 	Actor getListAct(int i) { return listaActores[i]; }
 
-	bool agregarActor(Actor a);
+	bool agregarActor(Actor a, int w);
 
 private:
 	int numPeli, anio, duracion;
@@ -47,30 +47,35 @@ Pelicula::Pelicula()
 	//veamos si esto es util, o si solo hay que borrarlo
 }
 
-bool Pelicula::agregarActor(Actor a)
+bool Pelicula::agregarActor(Actor a, int w)		// Contrario a las instrucciones se le agrego un int para saber cuantos se agregaran.
 {
 	bool test;
 	int i = 0;
+	Actor b;
+	
 	if (cantActores < 10)
 	{
-		while (i < cantActores)
+		while (i < w)
 		{
-			if(listaActores[i] == a)  //Segun investigacion, estos no se pueden igualar por que no son binarios. son 2 atributos vs 2 atrib. 
+			listaActores[i] = b;
+
+			if(b.getId() != a.getId())  //Segun investigacion, estos no se pueden igualar por que no son binarios. son 2 atributos vs 2 atrib. 
+			{							//Problema resuelto al obtener y comparar solo uno de los atributos
+				test = true;
+			}
+			else if (b.getId() == a.getId())
 			{
 				test = false;
-			}
-			else if (listaActores[i] != a)
-			{
-				test = true;
 			}
 			
 			i++;
 		}
 
-		if (test = true)
+		if (test == true)
 		{
-			cantActores++;
+			
 			listaActores[cantActores] = a;
+			cantActores++;
 		}
 	}
 
