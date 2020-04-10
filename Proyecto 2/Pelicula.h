@@ -47,7 +47,7 @@ Pelicula::Pelicula()
 	//veamos si esto es util, o si solo hay que borrarlo
 }
 
-/*bool Pelicula::agregarActor(Actor a)
+bool Pelicula::agregarActor(Actor a)
 {
 	bool test;
 	int i = 0;
@@ -55,7 +55,7 @@ Pelicula::Pelicula()
 	{
 		while (i < cantActores)
 		{
-			if(listaActores[i] == a)
+			if(listaActores[i] == a)  //Segun investigacion, estos no se pueden igualar por que no son binarios. son 2 atributos vs 2 atrib. 
 			{
 				test = false;
 			}
@@ -73,6 +73,8 @@ Pelicula::Pelicula()
 			listaActores[cantActores] = a;
 		}
 	}
+
+	return test;
 	
-}*/
+}
 

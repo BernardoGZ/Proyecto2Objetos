@@ -16,7 +16,7 @@ int main()
 	Actor actor;
 	Pelicula peli;
 
-	int i = 0, id, x = 0, y, z, w;
+	int i = 0, j = 0, id, x = 0, y, z, w;
 	string r, n, g;
 
 	
@@ -91,14 +91,16 @@ int main()
 		z = stoi(r.substr(y, x));
 		r.erase(x, 1);
 		
-		//Set Id de actores de la lista
+		//Set Id de actores en la lista
 		while (i < z)
 		{
 			y = x;
 			x = r.find(' ');
 			z = stoi(r.substr(y, x));
 
-
+			//Hasta aqui nos quedamos.
+			//Hay que enontrar a los actores en arrAct para poder agregarlos a la lista de actores.
+			//Aqui va el metodo agregar actores una vez resuelto lo anterior. 
 		}
 		
 		//Set Titulo
