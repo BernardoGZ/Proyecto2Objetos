@@ -15,8 +15,9 @@ int main()
 
 	Actor actor;
 	Pelicula peli;
+	Funcion fun;
 
-	int i = 0, j = 0, id, x = 0, y, z, w, numArrAct;
+	int i = 0, j = 0, k = 0, id, x = 0, y, z, w, numArrAct;
 	string r, n, g;
 
 	
@@ -37,7 +38,7 @@ int main()
 		actor.setNombre(n); 
 
 		arrAct[i] = actor;		
-		arrAct[i].muestra();
+		//arrAct[i].muestra();
 
 		i++;	
 
@@ -46,17 +47,20 @@ int main()
 
 	numArrAct = i; //Guardar cuantos actores hay en total, servira para buscar en la lista, mas adelante
 
-			//PARTE 2 Arreglo de Peliculas
+			
+				   
+				   //PARTE 2 Arreglo de Peliculas
 
 	ifstream pelicula;
 	pelicula.open("peliculas.txt");
 
-	//Pelicula lista;
+	i = 0;
 
 	while (getline(pelicula,r))
 	{
-		i = 0;
+		
 		j = 0;
+		k = 0;
 		x = 0;
 
 		//Set Numero de peli
@@ -66,7 +70,7 @@ int main()
 		peli.setNumP(z);
 		r.erase(x, 1);
 		
-		cout << "\n" << peli.getNumP() << "\t"; 
+		//cout << "\n" << peli.getNumP() << "\t"; 
 
 		//Set Anio
 		y = x;
@@ -75,7 +79,7 @@ int main()
 		peli.setAnio(z);
 		r.erase(x, 1);
 
-		cout << peli.getAnio() << "\t";
+		//cout << peli.getAnio() << "\t";
 
 		//Set Duracion
 		y = x;
@@ -84,7 +88,7 @@ int main()
 		peli.setDuracion(z);
 		r.erase(x, 1);
 
-		cout << peli.getDuracion() << "\t";
+		//cout << peli.getDuracion() << "\t";
 
 		//Set Genero
 		y = x;
@@ -93,7 +97,7 @@ int main()
 		peli.setGenero(g);
 		r.erase(x, 1);
 
-		cout << peli.getGenero() << "\t";
+		//cout << peli.getGenero() << "\t";
 
 		
 		//Set Cantidad de actores que se agregaran a la lista
@@ -102,9 +106,10 @@ int main()
 		z = stoi(r.substr(y, x));  //'z' es la cantidad de actores
 		r.erase(x, 1);
 
-		cout << z << "\t";
+		//cout << z << "\t";
 		//cout << peli.getCantAct() << "\t";    //Error, llama al valor default, porque contador cantAct se va sumando conforme vas agregando actores. Y todavia no agregamos
 		
+		/*
 		//Set Id de actores en la lista
 		while (i < z)		//mientras que nuestro contador 'i' sea menor que la cantidad de actores
 		{
@@ -133,20 +138,70 @@ int main()
 			
 			i++;
 
-		} 
+		} */
 		
 		//Set Titulo
 		y = x;
 		g = r.substr(y, r.length());  //Este ultimo es diferente porque es desde nos quedamos, hasta el final del renglon
 		peli.setTitulo(g);
 
-		cout << peli.getTitulo() << endl;
+		//cout << peli.getTitulo() << endl;
+
+		arrPeli[i] = peli;
+
+		//arrPeli[i].muestra();
+		
+		i++;
 		
 	}
 
 	pelicula.close();
 
+				//PARTE 3 Arreglo de funciones
 
+	i = 0;
+	
+	bool salidafun = true;
+	string cve;
+	cout << "Funciones: " <<endl;
+
+	while (salidafun == true)
+	{
+		cout << "Por favor ingresa las siglas clave de la funcion: " << endl;
+		cin >> cve;
+		fun.setCve(cve);
+
+		cout << "Por favor ingresa el numero de pelicula :" << endl;
+		cin >> x;
+		fun.setNumP(x);
+
+		cout << "Por favor ingresa el horario (hh:mm):" << endl;
+		cin >> r;
+		x = r.find(":");
+		y = stoi(r.substr(0, x));
+		z = stoi(r.substr(x + 1, x + 2));
+
+		Hora h(y,z);
+		fun.setHora(h);
+
+		cout << "Por favor ingresa el numero de sala :" << endl;
+		cin >> x;
+		fun.setSala(x);
+
+		arrFun[i] = fun;
+		//arrFun[i].muestra();
+
+		i++;
+
+		cout << "Quieres agregar otra funcion? 1. Si  2.No" << endl;
+		cin >> x;
+
+		if (x == 2)
+		{
+			salidafun = false;
+		}
+
+	}
 
 
 }

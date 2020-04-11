@@ -26,6 +26,8 @@ public:
 
 	bool agregarActor(Actor a, int w);
 
+	void muestra();
+
 private:
 	int numPeli, anio, duracion;
 	string titulo, genero;
@@ -40,9 +42,9 @@ Pelicula::Pelicula()
 	duracion = 0;
 	titulo = " ";
 	genero = " ";
-	cantActores = 0;
+	cantActores = 5;
 
-	Actor act(0, " ");
+	Actor act(0, " Lol ");
 	listaActores[0] = act;  
 	//veamos si esto es util, o si solo hay que borrarlo
 }
@@ -81,5 +83,16 @@ bool Pelicula::agregarActor(Actor a, int w)		// Contrario a las instrucciones se
 
 	return test;
 	
+}
+
+void Pelicula::muestra()
+{
+	int i = 0;
+	cout << titulo << "\t" << anio << "\t" << duracion << "\t" << genero << endl;
+	while (i  < cantActores)
+	{
+		listaActores->muestra();
+		i++;
+	}
 }
 
