@@ -17,7 +17,8 @@ int main()
 	Pelicula peli;
 	Funcion fun;
 
-	int i = 0, j = 0, k = 0, id, x = 0, y, z, w, numArrAct;
+	int i = 0, j = 0, k = 0, id, x = 0, y, z, w;
+	bool test;
 	string r, n, g;
 
 	
@@ -45,7 +46,7 @@ int main()
 	}
 	actores.close();
 
-	numArrAct = i; //Guardar cuantos actores hay en total, servira para buscar en la lista, mas adelante
+	int numArrAct = i; //Guardar cuantos actores hay en total, servira para buscar en la lista, mas adelante
 
 			
 				   
@@ -155,6 +156,7 @@ int main()
 		
 	}
 
+	int numArrPeli = i;
 	pelicula.close();
 
 				//PARTE 3 Arreglo de funciones
@@ -202,6 +204,104 @@ int main()
 		}
 
 	}
+	
+
+	int numArrFun = i;
+
+			
+	
+				//PARTE 4 Menu del usuario
+
+	bool salidamenu = true;
+	int opcion;
+	Hora h;
 
 
+	while (salidamenu == true)
+	{
+		i = 0;
+		cout << "\n Bienvenido! \n Por favor ingrese el numero de la opción que deseé elegir: " << endl;
+		cout << "\t 1. Consulta de lista de actores. \n\t 2. Consulta de lista de peliculas. \n\t 3. Consulta de lista de funciones. \n\t 4. Consulta de funciones por hora. \n\t 5. Consulta de funcion por clave. \n\t 6. Consulta de peliculas por actor. \n\t 7. Salir." << endl;
+		cin >> opcion;		//Si el usuario ingresa un numero con una puntuacion, o un caracter, se loopea. A que se debe y como se resuelve?
+
+		switch (opcion)
+		{
+		case 1:
+			while (i < numArrAct)
+			{
+				arrAct[i].muestra();
+				i++;
+			}
+			break;
+
+		case 2:
+			while (i < numArrPeli)
+			{
+				arrPeli[i].muestra();
+				i++;
+			}
+			break;
+
+		case 3:
+			while (i < numArrFun)
+			{
+				arrFun[i].muestra();
+				i++;
+			}
+			break;
+
+		case 4:
+			
+			cout << "\n Por favor ingrese el horario a buscar (hh:mm) (en formato 24hrs) : " << endl;
+			cin >> r;
+			x = r.find(":");
+			y = stoi(r.substr(0, x));
+			z = stoi(r.substr(x + 1, x + 2));			
+
+			if ((-1 < y && y < 24) && (-1 < z && z < 59 ))
+			{
+				h.setHora(y);
+				h.setMinuto(z);
+
+				test = false;
+				
+				while (i < numArrFun)
+				{
+					if (arrFun[i].getHora().getHora() == h.getHora() && arrFun[i].getHora().getMinuto() == h.getMinuto())
+					{
+						arrFun[i].muestra();
+						test = true;
+					}
+					
+					i++;
+				}
+				if (test == false)
+				{
+					cout << "\n No hay funciones disponibles a esa hora. " << endl;
+				}
+
+			}
+			else if (0 > y || y > 24 || -1 > z || z > 59)
+			{
+				cout << "\n Por favor introduzca un horario valido. " << endl;
+			}		
+
+			break;
+		case 5:
+			break;
+		case 6:
+			break;
+		
+		case 7:			
+			cout << "Gracias!" << endl;
+			salidamenu = false;
+
+			break;
+		
+		default:
+			cout << "\nPor favor ingrese una opcion valida. " << endl;
+			break;
+		}
+
+	}
 }
