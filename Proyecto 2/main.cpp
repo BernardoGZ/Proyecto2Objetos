@@ -216,6 +216,9 @@ int main()
 	{
 		i = 0;
 		j = 0;
+		test = false;
+	
+
 		cout << "\n Bienvenido! \n Por favor ingrese el numero de la opción que deseé elegir: " << endl;
 		cout << "\t 1. Consulta de lista de actores. \n\t 2. Consulta de lista de peliculas. \n\t 3. Consulta de lista de funciones. \n\t 4. Consulta de funciones por hora. \n\t 5. Consulta de funcion por clave. \n\t 6. Consulta de peliculas por actor. \n\t 7. Salir." << endl;
 		cin >> opcion;		//Si el usuario ingresa un numero con una puntuacion, o un caracter, se loopea. A que se debe y como se resuelve?
@@ -258,9 +261,7 @@ int main()
 			{
 				h.setHora(y);
 				h.setMinuto(z);
-
-				test = false;
-				
+	
 				while (i < numArrFun)
 				{
 					if (arrFun[i].getHora().getHora() == h.getHora() && arrFun[i].getHora().getMinuto() == h.getMinuto())
@@ -276,6 +277,7 @@ int main()
 						
 						arrFun[i].muestra();
 						test = true;
+						j = 0;
 					}
 					
 					i++;
@@ -293,14 +295,11 @@ int main()
 
 			break;
 		case 5:
-			cout << "\n Por favor ingrese el horario a buscar (hh:mm) (en formato 24hrs) : " << endl;
+			cout << "\n Por favor ingresa las siglas clave de la funcion : " << endl;
 			cin >> r;
 
-			test = false;
-
 			while (i < numArrFun)
-			{			
-
+			{
 				if (r == arrFun[i].getCve())
 				{
 					while (j < numArrPeli)
@@ -315,8 +314,9 @@ int main()
 					
 					arrFun[i].muestra();
 					test = true;
-					i++;
+					j = 0;
 				}
+				i++;
 			}
 			if (test == false)
 			{
@@ -327,8 +327,45 @@ int main()
 		case 6:
 			cout << "Por favor ingrese el ID del actor: ";
 			cin >> x;
+				//Hay que resolver primero lo de la lista de actores para poder terminar esta parte
 
-			//Hay que resolver primero lo de la lista de actores para poder terminar esta parte
+			while (i < numArrAct)
+			{
+				if (arrAct[i].getId() == x)		//Validar que el ID exista
+				{
+					arrAct[i].muestra();
+
+					while (j < numArrPeli)		//Buscar sin pasarnos del numero de peliculas
+					{
+						//cout << arrPeli[j].getCantAct() << endl;   //El cantAct si se esta guardando correctamente
+						
+						while (k < arrPeli[j].getCantAct())		//Buscar sin pasarnos la cantidad de actores por lista de cada pelicula
+						{
+							//cout << arrPeli[j].getListAct(k).getId() << endl;  // El comando que ponemos aqui si funciona
+							
+							if (arrPeli[j].getListAct(k).getId() == x)		//Verificar el ID del actor por pelicula
+							{
+								cout << arrPeli[j].getTitulo() << "\t" << arrPeli[j].getAnio() << endl;
+							}
+							
+							k++;
+						}
+						
+						k = 0;
+						j++;
+					}
+				
+					test = true;
+				}
+				j = 0;
+				i++;
+			}
+			if (test == false)
+			{
+				cout << "Por favor ingrese un ID valido." << endl;
+			}
+			
+			break;
 
 		
 		case 7:			
