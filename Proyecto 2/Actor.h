@@ -37,5 +37,5 @@ Actor::Actor(int i, string n)
 
 void Actor::muestra()
 {
-	cout << id << "\t" << nombre << endl;
+	cout << "ID: " << id << "\t" << nombre << endl;
 }

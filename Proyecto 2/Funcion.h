@@ -2,6 +2,7 @@
 #include <string>
 #include "Hora.h"
 
+
 using namespace std;
 
 class Funcion
@@ -50,6 +51,7 @@ Funcion::Funcion(string cveF, int np, Hora h, int s)
 
 void Funcion::muestra()
 {
-	cout << cveFuncion << "\t" << numPeli << "\t" << sala << endl;
-	hora.muestra();
+	cout << "\nHorario ";	hora.muestra();
+	cout << "\nClave: " << cveFuncion << "\t Numero de pelicula: " << numPeli << " \t Sala: " << sala << endl;
+	
 }

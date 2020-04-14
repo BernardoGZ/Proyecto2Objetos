@@ -35,5 +35,5 @@ Hora::Hora(int h, int m)
 
 void Hora::muestra()
 {
-	cout << "Hora: " << hh << ":" << mm << endl;
+	cout << hh << ":" << mm << endl;
 }

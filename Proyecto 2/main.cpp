@@ -13,8 +13,7 @@ int main()
 	Funcion arrFun[20];
 	Pelicula arrPeli[20];
 
-	Actor actor;
-	Pelicula peli;
+	Actor actor;	
 	Funcion fun;
 
 	int i = 0, j = 0, k = 0, id, x = 0, y, z, w;
@@ -58,8 +57,9 @@ int main()
 	i = 0;
 
 	while (getline(pelicula,r))
-	{
-		
+	{	
+		Pelicula peli;		//La variable 'peli' la pusimos dentro del while para que cada que vaya leyendo una pelicula, el atributo
+							//     contAct y  la lista, se reinicien por el constrDefault. Con esto, resolver nuestro problema con la lista. 
 		j = 0;
 		k = 0;
 		x = 0;
@@ -104,42 +104,37 @@ int main()
 		//Set Cantidad de actores que se agregaran a la lista
 		y = x;
 		x = r.find(' ');
-		z = stoi(r.substr(y, x));  //'z' es la cantidad de actores
+		z = stoi(r.substr(y, x));  //'z' es la cantidad de actores. Recuerda que actores = 1
 		r.erase(x, 1);
 
 		//cout << z << "\t";
 		//cout << peli.getCantAct() << "\t";    //Error, llama al valor default, porque contador cantAct se va sumando conforme vas agregando actores. Y todavia no agregamos
 		
-		/*
+		
 		//Set Id de actores en la lista
-		while (i < z)		//mientras que nuestro contador 'i' sea menor que la cantidad de actores
+		while (j < z)		//mientras que nuestro contador 'j' sea menor que la cantidad de actores
 		{
 			y = x;
 			x = r.find(' ');
 			w = stoi(r.substr(y, x));		//'w' se usara para no reemplazar 'z' del valor de cantidad de actores
 			r.erase(x, 1);
 
-			while (j <= numArrAct)		//Mientras que mi contador 'j' llega al numero total de actores en la lista
+			while (k < numArrAct)		//Mientras que mi contador 'k' llega al numero total de actores en la lista
 			{
-				if (arrAct[j].getId() == w)		//Se busca el Id segun es recibido en 'w'
+				if (arrAct[k].getId() == w)		//Se busca el Id segun es recibido en 'w'
 				{
-					 peli.agregarActor(arrAct[j], z) ;		//Se agrega el actor a la lista segun el metodo agregarActor. Debe regresar un bool. 
-					
-					 //cout << "\n Lool...  "<< peli.agregarActor(arrAct[j], z) << peli.getListAct(j).getId() << endl;
-					 //Comprobando en el cout<< que el bool arroja true (1) pero el Id en la lista no se guarda, siempre sale el default(0).
-				}
-				
-				j++;
+					 peli.agregarActor(arrAct[k]) ;		//Se agrega el actor a la lista segun el metodo agregarActor. Debe regresar un bool. 					
+				}				
+				k++;
 			}
-
 			
-			//Actor lista;
-			//peli.getListAct(i) = lista;
-			//cout << lista.getNombre() << endl;
-			
-			i++;
+			//peli.getListAct(j);
+			k = 0;
+			j++;
 
-		} */
+		}
+
+		
 		
 		//Set Titulo
 		y = x;
@@ -220,6 +215,7 @@ int main()
 	while (salidamenu == true)
 	{
 		i = 0;
+		j = 0;
 		cout << "\n Bienvenido! \n Por favor ingrese el numero de la opción que deseé elegir: " << endl;
 		cout << "\t 1. Consulta de lista de actores. \n\t 2. Consulta de lista de peliculas. \n\t 3. Consulta de lista de funciones. \n\t 4. Consulta de funciones por hora. \n\t 5. Consulta de funcion por clave. \n\t 6. Consulta de peliculas por actor. \n\t 7. Salir." << endl;
 		cin >> opcion;		//Si el usuario ingresa un numero con una puntuacion, o un caracter, se loopea. A que se debe y como se resuelve?
@@ -239,7 +235,7 @@ int main()
 			{
 				arrPeli[i].muestra();
 				i++;
-			}
+			}		// Pruebas exitosas. El actor num 39 en Forrest Gump no existe en la lista de actores. Otra prueba de exito.   
 			break;
 
 		case 3:
@@ -268,7 +264,16 @@ int main()
 				while (i < numArrFun)
 				{
 					if (arrFun[i].getHora().getHora() == h.getHora() && arrFun[i].getHora().getMinuto() == h.getMinuto())
-					{
+					{										
+						while (j < numArrPeli)
+						{							
+							if(arrFun[i].getNump() == arrPeli[j].getNumP())
+							{
+								cout << "\n" << arrPeli[j].getTitulo() ;								
+							}
+							j++;
+						}
+						
 						arrFun[i].muestra();
 						test = true;
 					}
@@ -288,9 +293,43 @@ int main()
 
 			break;
 		case 5:
+			cout << "\n Por favor ingrese el horario a buscar (hh:mm) (en formato 24hrs) : " << endl;
+			cin >> r;
+
+			test = false;
+
+			while (i < numArrFun)
+			{			
+
+				if (r == arrFun[i].getCve())
+				{
+					while (j < numArrPeli)
+					{
+						if (arrFun[i].getNump() == arrPeli[j].getNumP())
+						{
+							arrPeli[j].muestra();
+						}
+						j++;
+
+					}
+					
+					arrFun[i].muestra();
+					test = true;
+					i++;
+				}
+			}
+			if (test == false)
+			{
+				cout << "Por favor ingrese una Clave valida." << endl;
+			}
+			
 			break;
 		case 6:
-			break;
+			cout << "Por favor ingrese el ID del actor: ";
+			cin >> x;
+
+			//Hay que resolver primero lo de la lista de actores para poder terminar esta parte
+
 		
 		case 7:			
 			cout << "Gracias!" << endl;
