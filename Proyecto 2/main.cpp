@@ -22,7 +22,7 @@ int main()
 
 	
 	
-			//PARTE 1 Arreglo de Actores
+				//PARTE 1 Arreglo de Actores
 
 	ifstream actores;
 	actores.open("actores.txt");
@@ -46,7 +46,6 @@ int main()
 	actores.close();
 
 	int numArrAct = i; //Guardar cuantos actores hay en total, servira para buscar en la lista, mas adelante
-
 			
 				   
 				   //PARTE 2 Arreglo de Peliculas
@@ -71,7 +70,7 @@ int main()
 		peli.setNumP(z);
 		r.erase(x, 1);
 		
-		//cout << "\n" << peli.getNumP() << "\t"; 
+	
 
 		//Set Anio
 		y = x;
@@ -80,8 +79,7 @@ int main()
 		peli.setAnio(z);
 		r.erase(x, 1);
 
-		//cout << peli.getAnio() << "\t";
-
+	
 		//Set Duracion
 		y = x;
 		x = r.find(' ');
@@ -89,7 +87,7 @@ int main()
 		peli.setDuracion(z);
 		r.erase(x, 1);
 
-		//cout << peli.getDuracion() << "\t";
+	
 
 		//Set Genero
 		y = x;
@@ -98,7 +96,7 @@ int main()
 		peli.setGenero(g);
 		r.erase(x, 1);
 
-		//cout << peli.getGenero() << "\t";
+	
 
 		
 		//Set Cantidad de actores que se agregaran a la lista
@@ -107,7 +105,7 @@ int main()
 		z = stoi(r.substr(y, x));  //'z' es la cantidad de actores. Recuerda que actores = 1
 		r.erase(x, 1);
 
-		//cout << z << "\t";
+
 		//cout << peli.getCantAct() << "\t";    //Error, llama al valor default, porque contador cantAct se va sumando conforme vas agregando actores. Y todavia no agregamos
 		
 		
