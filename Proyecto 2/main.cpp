@@ -2,7 +2,7 @@
 #include <string>
 #include <fstream>
 
-#include "Actor.h"
+#include "Actor.h"		//Se le tiene que agregar la clase actor? No arriesgarse
 #include "Funcion.h"
 #include "Pelicula.h"
 
@@ -16,9 +16,9 @@ int main()
 	Actor actor;	
 	Funcion fun;
 
-	int i = 0, j = 0, k = 0, id, x = 0, y, z, w;
+	int i = 0, j = 0, k = 0, x = 0, y, z, w;
 	bool test;
-	string r, n, g;
+	string r, n;
 
 	
 	
@@ -29,17 +29,16 @@ int main()
 
 	while (getline(actores,r)) //Se obtiene toda la linea, hasta que el archivo se acabe
 	{
-		id = r.find_first_of(' '); //Un int cualquiera toma el lugar del espacio entre Id y Nombre
+		x = r.find_first_of(' '); //Un int cualquiera toma el lugar del espacio entre Id y Nombre
 		
-		n = r.substr(id + 1, r.length()); //Se le asigna el nombre a un string, a partir del espacio. 
-		id = stoi(r.substr(0, id)); //Se le asigna el id a un int, desde el principio hasta el espacio. 
+		n = r.substr(x + 1, r.length()); //Se le asigna el nombre a un string, a partir del espacio. 
+		x = stoi(r.substr(0, x)); //Se le asigna el id a un int, desde el principio hasta el espacio. 
 
-		actor.setId(id);	
+		actor.setId(x);	
 		actor.setNombre(n); 
 
 		arrAct[i] = actor;		
-		//arrAct[i].muestra();
-
+		
 		i++;	
 
 	}
@@ -57,8 +56,8 @@ int main()
 
 	while (getline(pelicula,r))
 	{	
-		Pelicula peli;		//La variable 'peli' la pusimos dentro del while para que cada que vaya leyendo una pelicula, el atributo
-							//     contAct y  la lista, se reinicien por el constrDefault. Con esto, resolver nuestro problema con la lista. 
+		Pelicula peli;		//La variable 'peli' se puso dentro del while para que cada que vaya leyendo una pelicula, el atributo
+							//     contAct y  la lista, se reinicien por el constrDefault. Con esto, resolver el problema con la lista. 
 		j = 0;
 		k = 0;
 		x = 0;
@@ -92,21 +91,17 @@ int main()
 		//Set Genero
 		y = x;
 		x = r.find(' ');
-		g = r.substr(y, x-y);  //x-y se uso para solucionar problema, 'g' tenia valor de casi todo el renglon. Ahora el genero se obtiene de manera correcta.
-		peli.setGenero(g);
+		n = r.substr(y, x-y);  //x-y se uso para solucionar problema, 'g' tenia valor de casi todo el renglon. Ahora el genero se obtiene de manera correcta.
+		peli.setGenero(n);
 		r.erase(x, 1);
-
 	
 
 		
 		//Set Cantidad de actores que se agregaran a la lista
 		y = x;
 		x = r.find(' ');
-		z = stoi(r.substr(y, x));  //'z' es la cantidad de actores. Recuerda que actores = 1
+		z = stoi(r.substr(y, x));  //'z' es la cantidad de actores.
 		r.erase(x, 1);
-
-
-		//cout << peli.getCantAct() << "\t";    //Error, llama al valor default, porque contador cantAct se va sumando conforme vas agregando actores. Y todavia no agregamos
 		
 		
 		//Set Id de actores en la lista
@@ -126,7 +121,6 @@ int main()
 				k++;
 			}
 			
-			//peli.getListAct(j);
 			k = 0;
 			j++;
 
@@ -136,56 +130,93 @@ int main()
 		
 		//Set Titulo
 		y = x;
-		g = r.substr(y, r.length());  //Este ultimo es diferente porque es desde nos quedamos, hasta el final del renglon
-		peli.setTitulo(g);
+		n = r.substr(y, r.length());  //Este ultimo es diferente porque es desde nos quedamos, hasta el final del renglon
+		peli.setTitulo(n);
 
-		//cout << peli.getTitulo() << endl;
-
+		
 		arrPeli[i] = peli;
-
-		//arrPeli[i].muestra();
 		
 		i++;
 		
 	}
-
 	int numArrPeli = i;
 	pelicula.close();
 
+				
 				//PARTE 3 Arreglo de funciones
 
 	i = 0;
 	
 	bool salidafun = true;
 	string cve;
+	
 	cout << "Funciones: " <<endl;
 
 	while (salidafun == true)
 	{
+		test = false;
+		j = 0;
+		
 		cout << "Por favor ingresa las siglas clave de la funcion: " << endl;
 		cin >> cve;
-		fun.setCve(cve);
+		fun.setCve(cve);		
 
-		cout << "Por favor ingresa el numero de pelicula :" << endl;
-		cin >> x;
-		fun.setNumP(x);
+	
+		
+		while (test == false)		//validar que el numero de pelicula sea correcto
+		{
+			cout << "Por favor ingresa el numero de pelicula :" << endl;
+			cin >> x;
 
-		cout << "Por favor ingresa el horario (hh:mm):" << endl;
-		cin >> r;
-		x = r.find(":");
-		y = stoi(r.substr(0, x));
-		z = stoi(r.substr(x + 1, x + 2));
+			while (j < numArrPeli)
+			{
+				if (x == arrPeli[j].getNumP()) 
+				{ 
+					fun.setNumP(x); 
+					test = true; 
+				}
+				
+				j++;
+			}
 
-		Hora h(y,z);
-		fun.setHora(h);
+			if (test == false)
+			{
+				cout << "\nPor favor ingrese un numero valido.  " << endl;
+			}
+			j = 0;
+		}
+		
+		j = 0;
+		test = false;
+
+		while (test == false)
+		{
+			cout << "Por favor ingresa el horario (hh:mm) (24 hrs):" << endl;
+			cin >> r;
+			x = r.find(":");
+			y = stoi(r.substr(0, x));
+			z = stoi(r.substr(x + 1, x + 2));
+
+			if ((-1 < y && y < 24) && (-1 < z && z < 60))
+			{
+				Hora h(y, z);
+				fun.setHora(h);
+				test = true;
+			}
+			else
+			{
+				cout << "\nPor favor ingrese un horario valido.  " << endl;				
+			}
+
+		}
+		
 
 		cout << "Por favor ingresa el numero de sala :" << endl;
 		cin >> x;
 		fun.setSala(x);
 
 		arrFun[i] = fun;
-		//arrFun[i].muestra();
-
+	
 		i++;
 
 		cout << "Quieres agregar otra funcion? 1. Si  2.No" << endl;
@@ -201,8 +232,7 @@ int main()
 
 	int numArrFun = i;
 
-			
-	
+				
 				//PARTE 4 Menu del usuario
 
 	bool salidamenu = true;
@@ -255,18 +285,18 @@ int main()
 			y = stoi(r.substr(0, x));
 			z = stoi(r.substr(x + 1, x + 2));			
 
-			if ((-1 < y && y < 24) && (-1 < z && z < 59 ))
+			if ((-1 < y && y < 24) && (-1 < z && z < 60 ))		//validar la hora y poder continuar
 			{
 				h.setHora(y);
 				h.setMinuto(z);
 	
-				while (i < numArrFun)
-				{
+				while (i < numArrFun)		// A continuacion validar que el horario (hh:mm) si exista en alguna funcion
+				{					// Para esto se busca dentro del arrFun, el metodo getHora de clase Funcion, getHora y getMin de clase Hora
 					if (arrFun[i].getHora().getHora() == h.getHora() && arrFun[i].getHora().getMinuto() == h.getMinuto())
 					{										
 						while (j < numArrPeli)
 						{							
-							if(arrFun[i].getNump() == arrPeli[j].getNumP())
+							if(arrFun[i].getNump() == arrPeli[j].getNumP())		//Obtener el titulo de la pelicula segun el numP
 							{
 								cout << "\n" << arrPeli[j].getTitulo() ;								
 							}
@@ -298,11 +328,11 @@ int main()
 
 			while (i < numArrFun)
 			{
-				if (r == arrFun[i].getCve())
+				if (r == arrFun[i].getCve())	//validar que exista la clave dentro de alguna funcion
 				{
 					while (j < numArrPeli)
 					{
-						if (arrFun[i].getNump() == arrPeli[j].getNumP())
+						if (arrFun[i].getNump() == arrPeli[j].getNumP())   //Encontrar los datos de la pelicula
 						{
 							arrPeli[j].muestra();
 						}
@@ -325,7 +355,6 @@ int main()
 		case 6:
 			cout << "Por favor ingrese el ID del actor: ";
 			cin >> x;
-				//Hay que resolver primero lo de la lista de actores para poder terminar esta parte
 
 			while (i < numArrAct)
 			{
@@ -335,11 +364,9 @@ int main()
 
 					while (j < numArrPeli)		//Buscar sin pasarnos del numero de peliculas
 					{
-						//cout << arrPeli[j].getCantAct() << endl;   //El cantAct si se esta guardando correctamente
-						
+										
 						while (k < arrPeli[j].getCantAct())		//Buscar sin pasarnos la cantidad de actores por lista de cada pelicula
-						{
-							//cout << arrPeli[j].getListAct(k).getId() << endl;  // El comando que ponemos aqui si funciona
+						{						
 							
 							if (arrPeli[j].getListAct(k).getId() == x)		//Verificar el ID del actor por pelicula
 							{

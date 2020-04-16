@@ -46,16 +46,16 @@ Pelicula::Pelicula()
 
 	Actor act(0, " Lol ");
 	listaActores[0] = act;  
-	//veamos si esto es util, o si solo hay que borrarlo
+	
 }
 
-bool Pelicula::agregarActor(Actor a)		// Contrario a las instrucciones se le agrego un int para saber cuantos se agregaran.
+bool Pelicula::agregarActor(Actor a)		
 {
 	bool test;
 	int i = 0;
 	Actor b;
 	
-	if (cantActores < 10)
+	if (cantActores < 10)		//Recordar que la cantActores se inicia cada constDefault como 0. Y se va sumando conforme se agreguen actores
 	{
 		listaActores[cantActores] = a;
 		cantActores++;
