@@ -251,6 +251,9 @@ int main()
 		cout << "\t 1. Consulta de lista de actores. \n\t 2. Consulta de lista de peliculas. \n\t 3. Consulta de lista de funciones. \n\t 4. Consulta de funciones por hora. \n\t 5. Consulta de funcion por clave. \n\t 6. Consulta de peliculas por actor. \n\t 7. Salir." << endl;
 		cin >> opcion;		//Si el usuario ingresa un numero con una puntuacion, o un caracter, se loopea. A que se debe y como se resuelve?
 
+		if (cin.fail() == 1) { cin.clear(); cin.ignore(); }
+
+
 		switch (opcion)
 		{
 		case 1:
