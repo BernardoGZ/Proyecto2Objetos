@@ -2,7 +2,6 @@
 #include <string>
 #include <fstream>
 
-#include "Actor.h"		//Se le tiene que agregar la clase actor? No arriesgarse
 #include "Funcion.h"
 #include "Pelicula.h"
 
@@ -167,6 +166,7 @@ int main()
 		{
 			cout << "Por favor ingresa el numero de pelicula :" << endl;
 			cin >> x;
+			if (cin.fail()) { cin.clear(); cin.ignore(); }
 
 			while (j < numArrPeli)
 			{
@@ -251,7 +251,11 @@ int main()
 		cout << "\t 1. Consulta de lista de actores. \n\t 2. Consulta de lista de peliculas. \n\t 3. Consulta de lista de funciones. \n\t 4. Consulta de funciones por hora. \n\t 5. Consulta de funcion por clave. \n\t 6. Consulta de peliculas por actor. \n\t 7. Salir." << endl;
 		cin >> opcion;		//Si el usuario ingresa un numero con una puntuacion, o un caracter, se loopea. A que se debe y como se resuelve?
 
-		if (cin.fail() == 1) { cin.clear(); cin.ignore(); }
+		if (cin.fail() == 1) { cin.clear(); cin.ignore(); } //Esta linea es para validar que lo ingresado sea la variable solicitada. 
+			//cin.fail checa si la entrada de cin tuvo errores , regresa un bool. Si sucede, el estado de error se guarda en el buffer del cin. 
+			//cin.clear limpia el estado de error del buffer del cin. 
+			//cin.ignore ignora lo restante de la linea y te permite continuar con el programa. 
+	//En este caso, si ocurre un error, 'opcion' se queda vacia, por lo cual lo manda al default switch. 
 
 
 		switch (opcion)

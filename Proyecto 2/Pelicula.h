@@ -51,19 +51,32 @@ Pelicula::Pelicula()
 
 bool Pelicula::agregarActor(Actor a)		
 {
-	bool test;
+	bool test = true;
 	int i = 0;
 	Actor b;
 	
 	if (cantActores < 10)		//Recordar que la cantActores se inicia cada constDefault como 0. Y se va sumando conforme se agreguen actores
-	{
-		listaActores[cantActores] = a;
-		cantActores++;
-		test = true;
+	{			
+		while (i < cantActores)  // validar que el actor que recibe no este ya en en la lista
+		{
+			if (a.getId() == listaActores[i].getId())
+			{
+				test = false;
+			}			
+
+			i++;
+		}
+		
 	}
 	else
 	{
 		test = false;
+	}
+
+	if (test == true)
+	{
+		listaActores[cantActores] = a;
+		cantActores++;		
 	}
 	
 	return test;
