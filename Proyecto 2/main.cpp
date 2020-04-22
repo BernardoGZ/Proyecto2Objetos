@@ -7,7 +7,7 @@
 
 int main() 
 {
-
+ 
 	Actor arrAct[20];
 	Funcion arrFun[20];
 	Pelicula arrPeli[20];
